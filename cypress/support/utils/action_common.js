@@ -1,4 +1,5 @@
 import 'cypress-xpath';
+import "cypress-real-events";
 
 export const visit = (url) => {
   Cypress.on('uncaught:exception', () => {
@@ -59,6 +60,17 @@ export const clickElementByJS = (xpath) => {
     cy.xpath(xpath)
       .scrollIntoView({duration: 1000});
   };
+
+  export const scrollDown = () => {
+    cy.scrollTo(0, 100);
+  }
+
+  export const dragElement = (xpath) => {
+    cy.get(xpath).trigger('mousedown', { which: 1, pageX: 600, pageY: 100 })
+    .trigger('mousemove', { which: 1, pageX: 600, pageY: 600 })
+    .trigger('mouseup')
+  }
+    
 
   export const clickElementOpenNewTab = (xpath) => {
     cy.window().then((win) => {

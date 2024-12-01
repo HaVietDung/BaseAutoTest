@@ -22,6 +22,11 @@ module.exports = defineConfig({
     viewportWidth: 1900,
     defaultCommandTimeout: 100000,
     pageLoadTimeout: 100000,
+    experimentalSkipDomainInjection: [
+      '*.stripe.com',
+      '*.stripe.network',
+      '*.amazon.co.jp',
+    ],
   },
 });
 
