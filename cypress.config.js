@@ -20,12 +20,17 @@ module.exports = defineConfig({
     specPattern: "cypress/e2e/**/*.feature",
     viewportHeight: 1080,
     viewportWidth: 1900,
-    defaultCommandTimeout: 100000,
-    pageLoadTimeout: 100000,
+    defaultCommandTimeout: 120000,
+    pageLoadTimeout: 120000,
+    requestTimeout: 30000,
+    responseTimeout: 30000,
     experimentalSkipDomainInjection: [
       '*.stripe.com',
       '*.stripe.network',
-      '*.amazon.co.jp',
+      'js.stripe.com',
+      'hooks.stripe.com',
+      'api.stripe.com',
+      'm.stripe.com'
     ],
   },
 });

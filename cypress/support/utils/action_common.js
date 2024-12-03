@@ -1,5 +1,6 @@
 import 'cypress-xpath';
 import "cypress-real-events";
+import 'cypress-iframe';
 
 export const visit = (url) => {
   Cypress.on('uncaught:exception', () => {
@@ -61,16 +62,9 @@ export const clickElementByJS = (xpath) => {
       .scrollIntoView({duration: 1000});
   };
 
-  export const scrollDown = () => {
-    cy.scrollTo(0, 100);
-  }
-
-  export const dragElement = (xpath) => {
-    cy.get(xpath).trigger('mousedown', { which: 1, pageX: 600, pageY: 100 })
-    .trigger('mousemove', { which: 1, pageX: 600, pageY: 600 })
-    .trigger('mouseup')
-  }
-    
+export const scrollDown = () => {
+  cy.scrollTo(0, 100);
+};  
 
   export const clickElementOpenNewTab = (xpath) => {
     cy.window().then((win) => {
@@ -121,4 +115,21 @@ export const clickElementByJS = (xpath) => {
     cy.xpath(xpath)  
       .should('be.visible')  
       .select(value)  
+  };
+
+export const dragElement = (xpath) => {
+  cy.get(xpath).trigger('mousedown', { which: 1, pageX: 600, pageY: 100 })
+    .trigger('mousemove', { which: 1, pageX: 600, pageY: 600 })
+    .trigger('mouseup')
+  
+};
+
+export const swipeElementLeftToRight = (xpath) => {
+  cy.xpath(xpath)
+    .should('be.visible')
+    .invoke('attr', 'style', 'width: 100% !important');
+  cy.xpath(xpath)
+    .trigger('mousedown', { which: 1, pageX: 100, pageY: 100 })
+    .trigger('mousemove', { which: 1, pageX: 600, pageY: 100 })
+    .trigger('mouseup');
 };

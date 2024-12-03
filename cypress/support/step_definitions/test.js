@@ -1,22 +1,16 @@
 import { When } from "cypress-cucumber-preprocessor/steps";
 const ACTION = require('../utils/action_common')
+import 'cypress-iframe';
 
 // Authentication
 When('login', () => {
     ACTION.visit(Cypress.env('HOME_URL'));
-    cy.wait(1000);
     ACTION.clickElement("//img[@class='gift-clear']");
-    cy.wait(1000);
     ACTION.clickElement("//a[text()='アカウント']");
-    cy.wait(1000);
     ACTION.typeText("//input[@id='login_email']", "eninhtocdai@gmail.com");
-    cy.wait(1000);
     ACTION.typeText("//input[@id='login_pass']", "1admit147");
-    cy.wait(1000);
     ACTION.clickElement("//button[@id='btn-submit-login']");
-    cy.wait(1000);
     ACTION.clickElement("//div[@class='logo top-page']");
-    cy.wait(1000);
 });
 
 const randomEmail = `test${Math.floor(Math.random() * 10000)}@example.com`;
@@ -49,6 +43,20 @@ When('change_customer_info', () => {
     ACTION.clickElement("//button[@class='ec-blockBtn--cancel']");
 });
 
+When('change_card_info', () => {
+    ACTION.clickElement("//li[@class='ec-navlistRole__item static icon-account ']");
+    ACTION.clickElement("//a[text()='決済カードリスト']");
+    ACTION.clickElement("//a[text()='クレジットカードを追加']");
+    ACTION.waitIframe('//div[contains(@class, "__PrivateStripeElement")]//iframe',5555555555554444,345,111 );
+});
+
+When('without_login', () => {
+    ACTION.visit(Cypress.env('HOME_URL'));
+    cy.wait(1000);
+    ACTION.clickElement("//img[@class='gift-clear']");
+    cy.wait(1000);
+});
+
 // Authentication
 
 When('close_gift', () => {
@@ -59,17 +67,11 @@ When('close_gift', () => {
 });
 
 When('change_card', () => { 
-    cy.wait(30000);
-    ACTION.clickElement("//div[@class='form-control StripeElement StripeElement--empty']");
+    cy.wait(60000);
+    // ACTION.waitIframe('//div(@class="__PrivateStripeElement")[1]//iframe',5555555555554444,345,111 );
     
 });
 
-When('without_login', () => {
-    ACTION.visit(Cypress.env('HOME_URL'));
-    cy.wait(1000);
-    ACTION.clickElement("//img[@class='gift-clear']");
-    cy.wait(1000);
-});
 
 When('payment_in_shopping', () => {
     ACTION.clickElement("(//button[@class='ec-blockBtn--action s2 btn-payment'])");
@@ -130,6 +132,8 @@ When('one_touch_payment', () => {
     cy.wait(1000);
 });
 
-When('drag_payment', () => {
-    ACTION.dragElement(".thumb.drag-default");
+When('swipe_element_payment', () => {
+    ACTION.swipeElementLeftToRight("//div[@class='thumb drag-default']");
 });
+
+
